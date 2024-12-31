@@ -1,9 +1,35 @@
-import React from "react";
-import {CiLocationOn, CiMoneyBill, CiTimer} from "react-icons/ci"
+"use client";
+import { CiLocationOn, CiMoneyBill, CiTimer } from "react-icons/ci";
 import { priceFormat } from "@/utils";
+import { useUser } from "@clerk/nextjs";
+import { toast } from "react-toastify";
+import { ApplyJobCreate } from "@/actions/apply";
 const DetailJob = ({ job }) => {
-  const { title, companyName, address, city, state, remote, salary, jobType, requirements, benefit } =
-    job;
+  const {
+    title,
+    companyName,
+    address,
+    city,
+    state,
+    remote,
+    salary,
+    jobType,
+    requirements,
+    benefit,
+    clerkId,
+  } = job;
+
+  const { user } = useUser();
+
+  const handleApply = async () => {
+    const ApplyJobData = await ApplyJobCreate(job._id);
+    if (ApplyJobData.error) {
+      toast.error(ApplyJobData.error);
+    } else {
+      toast.success(ApplyJobData.message);
+    }
+  };
+
   return (
     <>
       <div className="card glass min-h-full shadow-xl">
@@ -33,7 +59,21 @@ const DetailJob = ({ job }) => {
               </span>
             </li>
           </ul>
-          <button className="btn btn-primary text-white rounded-full">Apply Job</button>
+          {user && clerkId != user.id ? (
+            <>
+              <button
+                className="btn btn-primary text-white rounded-full"
+                onClick={handleApply}
+              >
+                Apply Job
+              </button>
+            </>
+          ) : (
+            <p className="bg-base-200 text-center text-lg font-bold p-5">
+              Login For apply this job
+            </p>
+          )}
+
           <h1 className="card-title text-info my-2">Skill yang dibutuhkan</h1>
           <p className="whitespace-pre-line">{requirements}</p>
           <h1 className="card-title text-info my-2">Benefit Yang Didapatkan</h1>

@@ -1,6 +1,6 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
-import { CiMoneyBill, CiLocationOn, CiTimer } from "react-icons/ci";
+import { CiMoneyBill, CiLocationOn, CiTimer, CiUser } from "react-icons/ci";
 import Link from "next/link";
 import { priceFormat } from "@/utils";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ const CardJobs = ({ job, url }) => {
     title,
     companyName,
     address,
-  city,
+    city,
     state,
     remote,
     salary,
@@ -20,13 +20,13 @@ const CardJobs = ({ job, url }) => {
   } = job;
   const { user } = useUser();
   const handleDelete = async () => {
-      const confirm = window.confirm("Hapus ?")
-      if(!confirm){
-        return;
-      }
-      await jobDelete(_id);
-      toast.success("Berhasil Dihapus");
-  }
+    const confirm = window.confirm("Hapus ?");
+    if (!confirm) {
+      return;
+    }
+    await jobDelete(_id);
+    toast.success("Berhasil Dihapus");
+  };
   return (
     <>
       <div className="card glass min-h-full shadow-xl">
@@ -66,9 +66,18 @@ const CardJobs = ({ job, url }) => {
               >
                 Edit
               </Link>
-              <button className="btn btn-error btn-sm rounded-full" onClick={handleDelete}>
+              <button
+                className="btn btn-error btn-sm rounded-full"
+                onClick={handleDelete}
+              >
                 Delete
               </button>
+              <Link
+                className="btn btn-accent text-white btn-sm rounded-lg"
+                href={`/dashboard/jobs/${_id}/pelamar`}
+              >
+                <CiUser /> Pelamar
+              </Link>
             </div>
           ) : null}
         </div>

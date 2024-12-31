@@ -18,7 +18,7 @@ const Homepage = async () => {
           <CardJobs
             key={item._id}
             job={JSON.parse(JSON.stringify(item))}
-            url={`/jobs/${item._id}`}
+            url={`/job/${item._id}`}
           />
         ))}
       </div>
