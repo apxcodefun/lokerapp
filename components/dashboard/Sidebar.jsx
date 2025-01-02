@@ -10,7 +10,7 @@ const Sidebar = () => {
   return (
     <aside className='py-2 px-4 bg-base-300 h-full'>
         <Image height={100} width={100} src={Logo} className='mx-auto' alt='sidebar image' />
-        <div className="flex flex-col mt-10 gap-y-2">
+        <div className="flex flex-col mt-10 gap-y-2 rounded-full">
             {DashboardList.map((item) =>(
                 <Link key={item.label} href={item.href} className={`btn btn-lg ${pathname === item.href ? 'btn-primary' : ''}`}><span className='capitalize'>{item.label}</span></Link>
             ))}

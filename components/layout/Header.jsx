@@ -34,7 +34,7 @@ const Header = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             {navList.map((item) => (
-              <li key={item.name}>
+              <li key={item.id}>
                 <Link href={item.url}>{item.name}</Link>
               </li>
             ))}

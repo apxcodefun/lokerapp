@@ -10,7 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme="retro">
       <body>
         {children}
         <ToastContainer />
