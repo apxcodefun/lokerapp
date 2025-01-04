@@ -3,6 +3,7 @@ import connectDB from "@/configs/database";
 import { auth } from "@clerk/nextjs/server";
 import Profile from "@/models/profile";
 import ApplyJob from "@/models/applyJob";
+import {ApplyJobSchema} from "@/utils/ApplyJob";
 
 export async function ApplyJobCreate(jobId) {
   await connectDB();
@@ -32,5 +33,18 @@ export async function ApplyJobCreate(jobId) {
     return {
       error: "Anda Belum membuat profile",
     };
+  }
+}
+
+export async function ApplyJobActionUpdate(stateId, formData){
+  await connectDB();
+  const validateFields = ApplyJobSchema.safeParse({
+    message: formData.get("message"),
+    status: formData.get("status"),
+  })
+  if(!validateFields.success){
+    return {
+      errors : validateFields.error.flatten().fieldErrors,
+    }
   }
 }

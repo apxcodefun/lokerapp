@@ -30,7 +30,8 @@ export async function AddProfile(state, formData) {
 
   let role;
   const ProfileCount = await Profile.countDocuments();
-  role = ProfileCount === 0 ? (role = "admin") : (role = "user");
+   role = ProfileCount === 0 ? "admin" : "user";
+
 
   try {
     const newProfile = new Profile({

@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "@/app/assets/logo.png";
 import { SignedIn, SignInButton, SignedOut } from "@clerk/nextjs";
 const Header = () => {
   const navList = [
@@ -34,22 +33,21 @@ const Header = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             {navList.map((item) => (
-              <li key={item.id}>
+              <li key={item.name}>
                 <Link href={item.url}>{item.name}</Link>
               </li>
             ))}
           </ul>
         </div>
-        <Link href="/" className="btn btn-link text-xl">
-          <Image src={Logo} width={30} height={30} alt="Logos" />
-          IDK
+        <Link href="/" className="btn btn-link text-xl no-underline">
+          <h1 className="text-black">Classic Loker.</h1>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           {navList.map((item) => (
             <li>
-              <Link href={item.url} key={item.name}>{item.name}</Link>
+              <Link href={item.url} key={item.id}>{item.name}</Link>
             </li>
           ))}
         </ul>

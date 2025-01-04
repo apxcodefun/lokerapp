@@ -10,7 +10,7 @@ const Homepage = async () => {
       <section className="bg-info px-7 py-4">
         <InputSearch />
       </section>
-      <h1 className="text-3xl font-bold text-info underline my-5">
+      <h1 className="text-3xl font-bold text-dark underline my-5">
         Loker Paling Baru
       </h1>
       <div className="grid md:grid-cols-3 sm:grid-cols-1 my-3 gap-5">
