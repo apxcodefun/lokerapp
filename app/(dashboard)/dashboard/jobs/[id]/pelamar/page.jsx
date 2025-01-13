@@ -31,7 +31,7 @@ const ListPelamarPage = async ({ params }) => {
       </h1>
       <div className="grid lg:gird-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5">
         {applyJobsRaw.map((item) => (
-          <div className="card bg-base-100 shadow-2xl">
+          <div key={item._id} className="card bg-base-100 shadow-2xl">
             <div className="card-body">
               <h2 className="card-title text-lg font-bold text-info">
                 {item.ListPelamar.firstName} {item.ListPelamar.lastName}
@@ -49,7 +49,7 @@ const ListPelamarPage = async ({ params }) => {
                     <MdSchool className="w-9 h-9 text-success" />
                   </Link>
                 </div>
-                <DialogButton data={item.ListPelamar} dataId={item._id}/>
+                <DialogButton data={item.ListPelamar} dataId={item._id} />
               </div>
             </div>
           </div>

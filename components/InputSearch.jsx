@@ -1,11 +1,19 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const InputSearch = () => {
   const [search, setSearch] = useState("");
+  const router = useRouter();
+
+  const handleSearch = () => {
+    if (search.trim() !== "") {
+      router.push(`/job?search=${encodeURIComponent(search)}`);
+    }
+  };
+
   return (
-    <>
+    <div>
       <input
         type="text"
         placeholder="Masukkan Judul Loker"
@@ -13,13 +21,10 @@ const InputSearch = () => {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <Link
-        href={`/job?search=${search}`}
-        className="btn btn-primary btn-block mt-3 text-white"
-      >
+      <button onClick={handleSearch} className="btn btn-primary">
         Search
-      </Link>
-    </>
+      </button>
+    </div>
   );
 };
 
