@@ -49,7 +49,7 @@ const ListPelamarPage = async ({ params }) => {
                     <MdSchool className="w-9 h-9 text-success" />
                   </Link>
                 </div>
-                <DialogButton data={item.ListPelamar}/>
+                <DialogButton data={item.ListPelamar} dataId={item._id}/>
               </div>
             </div>
           </div>

@@ -34,6 +34,13 @@ ApplyJobSchema.virtual("ListPelamar", {
   justOne: true,
 });
 
+ApplyJobSchema.virtual("ListJobs", {
+  ref: "Jobs",
+  localField: "jobs",
+  foreignField: "_id",
+  justOne: true,
+});
+
 const ApplyJob = models.ApplyJob || model("ApplyJob", ApplyJobSchema);
 
 export default ApplyJob;

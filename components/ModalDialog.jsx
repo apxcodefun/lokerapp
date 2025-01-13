@@ -4,10 +4,12 @@ import { useActionState } from "react";
 import SelectOption from "./form/SelectOption";
 import TextAreaField from "./form/TextAreaField";
 import BtnSubmit from "./form/BtnSubmit";
-import { ApplyJobActionUpdate } from '@/actions/apply';
+import { ApplyJobActionUpdate } from "@/actions/apply";
+import { toast } from "react-toastify";
 
-const ModalDialog = ({ isOpen, onClose, details }) => {
-  const [state, action] = useActionState(ApplyJobActionUpdate, details._id);
+const ModalDialog = ({ isOpen, onClose, details, dataId }) => {
+  const [state, action] = useActionState(ApplyJobActionUpdate, dataId);
+
   const listStatus = ["pending", "interview", "rejected"];
 
   if (!isOpen) {

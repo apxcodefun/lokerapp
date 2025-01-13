@@ -21,8 +21,8 @@ const DashboarList = [
     label: "Profile",
   },
   {
-    href: "/dashboard/stats",
-    label: "Stats",
+    href: "/dashboard/message",
+    label: "Message",
   },
 ];
 

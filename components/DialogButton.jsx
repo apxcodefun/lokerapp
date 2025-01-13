@@ -2,7 +2,7 @@
 import { useState } from "react";
 import ModalDialog from "./ModalDialog";
 
-const DialogButton = ({ data }) => {
+const DialogButton = ({ data,dataId }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -30,6 +30,7 @@ const DialogButton = ({ data }) => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         details={data}
+        dataId={dataId} /*(dataId diambil dari props)*/
       />
     </>
   );
