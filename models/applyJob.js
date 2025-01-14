@@ -13,7 +13,7 @@ const ApplyJobSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["Pending", "Declined", "interview"],
+      enum: ["Pending", "Declined", "Interview"],
       default: "Pending",
     },
     message: {

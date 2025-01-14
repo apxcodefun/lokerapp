@@ -1,56 +1,56 @@
-"use client";
-import { useUser } from "@clerk/nextjs";
-import Image from "next/image";
+import UserInfo from "@/components/dashboard/UserInfo";
+import connectDB from "@/configs/database";
+import { auth } from "@clerk/nextjs/server";
+import Profile from "@/models/profile";
+import ApplyJob from "@/models/applyJob";
+import UserStatus from "@/components/dashboard/UserStatus";
 
-const Dashboard = () => {
-  const { isLoaded, isSignedIn, user } = useUser();
-  if (!isLoaded || !isSignedIn) {
-    return null;
-  }
+const Dashboard = async () => {
+  await connectDB();
+  const { userId } = await auth(); // Ambil user yang sudah login
+  const profileDoc = await Profile.findOne({
+    clerkId: userId,
+  }).select("_id"); //Perintah Select untuk mengambil data dari profile yang datanya terdapat _id
 
-  const { imageUrl, fullName } = user;
+  const pendingCount = await ApplyJob.countDocuments({
+    profile: profileDoc._id,
+    status: "Pending",
+  });
+  const interviewCount = await ApplyJob.countDocuments({
+    profile: profileDoc._id,
+    status: "Interview",
+  });
+
+  const rejectedCount = await ApplyJob.countDocuments({
+    profile: profileDoc._id,
+    status: "rejected",
+  });
+
+  const objStatus = {
+    pending: pendingCount,
+    interview: interviewCount,
+    rejected: rejectedCount,
+  };
+
   return (
     <>
-      <div className="flex items-center gap-10">
-        <Image
-          src={imageUrl}
-          alt="apalah Itu"
-          className="rounded-full"
-          width={100}
-          height={100}
-        />
-        <h1 className="text-3xl font-bold">
-          Selamat Datang,<span className="text-primary">{fullName}</span>
-        </h1>
-      </div>
+      <UserInfo />
       <div className="grid grid-cols-3 gap-10 mt-5">
-        <div className="card bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Card title!</h2>
-          <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
-        </div>
-        <div className="card bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Card title!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
-        </div>
-        <div className="card bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Card title!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
-        </div>
+        <UserStatus
+          title="Pending"
+          bgColor="bg-warning"
+          count={objStatus.pending}
+        />
+        <UserStatus
+          title="Interview"
+          bgColor="bg-success"
+          count={objStatus.interview}
+        />
+        <UserStatus
+          title="Rejected"
+          bgColor="bg-error"
+          count={objStatus.rejected}
+        />
       </div>
     </>
   );

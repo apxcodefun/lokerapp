@@ -44,7 +44,7 @@ const MessagePage = async () => {
               <span className="font-bold text-2xl mr-3">
                 {item.ListJobs.title}
               </span>
-              {item.status === "interview" ? (
+              {item.status === "Interview" ? (
                 <div className="badge badge-primary">Interview</div>
               ) : item.status === "Pending" ? (
                 <div className="badge badge-warning">Pending</div>
